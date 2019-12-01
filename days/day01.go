@@ -1,20 +1,20 @@
 package days
 
 import (
-	"os"
 	"bufio"
 	"fmt"
+	"os"
 	"strconv"
 )
 
 func checker(e error) {
 	if e != nil {
-			panic(e)
+		panic(e)
 	}
 }
 
 func operation(data int) int {
-	return int(data / 3) - 2
+	return int(data/3) - 2
 }
 
 func part_one() string {
@@ -27,7 +27,7 @@ func part_one() string {
 
 	for scanner.Scan() {
 		data := scanner.Text()
-		as_int, _ := strconv.Atoi(data) 
+		as_int, _ := strconv.Atoi(data)
 		total_fuel += operation(as_int)
 	}
 
@@ -44,8 +44,8 @@ func part_two() string {
 
 	for scanner.Scan() {
 		data := scanner.Text()
-		as_int, _ := strconv.Atoi(data) 
-		
+		as_int, _ := strconv.Atoi(data)
+
 		for as_int = operation(as_int); as_int >= 0; as_int = operation(as_int) {
 
 			total_fuel += as_int
@@ -56,7 +56,7 @@ func part_two() string {
 	return strconv.Itoa(total_fuel)
 }
 
-type DayOne struct {}
+type DayOne struct{}
 
 // Entry point
 func (empty DayOne) Run() {
@@ -64,5 +64,3 @@ func (empty DayOne) Run() {
 	fmt.Printf("Part One: %s\n", part_one())
 	fmt.Printf("Part Two: %s\n", part_two())
 }
-
-
