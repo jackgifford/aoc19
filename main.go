@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	day_one := days.DayOne{}
-	day_one.Run()
+	days.Run()
 }
