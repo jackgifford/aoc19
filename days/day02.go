@@ -1,13 +1,17 @@
 package days
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 )
 
 var machineState []int
 var i int = 0
 
 func systemState() {
+	fmt.Printf("Final state: ")
 	fmt.Println(machineState)
 }
 
@@ -28,8 +32,8 @@ func multOp() {
 }
 
 func haltOp() {
-	fmt.Println("Program finished :)")
 	systemState()
+	fmt.Println("Program finished :)")
 }
 
 func loop() {
@@ -49,7 +53,6 @@ func loop() {
 		}
 
 		i += 4
-		//systemState()
 	}
 }
 
@@ -63,7 +66,9 @@ func partTwo() {
 			loop()
 
 			if machineState[0] == 19690720 {
-				panic("we found it")
+				fmt.Printf("Solution found: noun = %d, verb = %d\n", noun, verb)
+				fmt.Printf("Answer: 100 * %d + %d = %d\n", noun, verb, 100*noun+verb)
+				os.Exit(0)
 			}
 		}
 		noun += 1
@@ -71,32 +76,40 @@ func partTwo() {
 }
 
 func Run() {
-	machineState = []int{1, 0, 0, 0, 99}
-	fmt.Println("Test One")
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("Elf Runner")
+	fmt.Println("Available Programs: ")
+	fmt.Printf("a) Part A \nb) Part B \n1) Test One\n2) Test Two\n3) Test Three\n4) Test Four\n")
+	fmt.Printf("Select a program: ")
+	userInput, _ := reader.ReadString('\n')
+
+	trimmed := strings.TrimSpace(userInput)[0]
+
+	switch trimmed {
+	case 'a':
+		fmt.Printf("Part a")
+		machineState = []int{1, 12, 2, 3, 1, 1, 2, 3, 1, 3, 4, 3, 1, 5, 0, 3, 2, 10, 1, 19, 1, 6, 19, 23, 2, 23, 6, 27, 1, 5, 27, 31, 1, 31, 9, 35, 2, 10, 35, 39, 1, 5, 39, 43, 2, 43, 10, 47, 1, 47, 6, 51, 2, 51, 6, 55, 2, 55, 13, 59, 2, 6, 59, 63, 1, 63, 5, 67, 1, 6, 67, 71, 2, 71, 9, 75, 1, 6, 75, 79, 2, 13, 79, 83, 1, 9, 83, 87, 1, 87, 13, 91, 2, 91, 10, 95, 1, 6, 95, 99, 1, 99, 13, 103, 1, 13, 103, 107, 2, 107, 10, 111, 1, 9, 111, 115, 1, 115, 10, 119, 1, 5, 119, 123, 1, 6, 123, 127, 1, 10, 127, 131, 1, 2, 131, 135, 1, 135, 10, 0, 99, 2, 14, 0, 0}
+
+	case 'b':
+		partTwo()
+		os.Exit(0)
+
+	case '1':
+		machineState = []int{1, 0, 0, 0, 99}
+		fmt.Println("Test One")
+	case '2':
+		fmt.Println("Test Two")
+		machineState = []int{2, 3, 0, 3, 99}
+	case '3':
+		fmt.Println("Test Three")
+		machineState = []int{2, 4, 4, 5, 99, 0}
+	case '4':
+		fmt.Println("Test Four")
+		machineState = []int{1, 1, 1, 4, 99, 5, 6, 0, 99}
+	default:
+		fmt.Printf("Invalid input\n")
+		os.Exit(1)
+	}
+
 	loop()
-
-	fmt.Println("Test two")
-	machineState = []int{2, 3, 0, 3, 99}
-	loop()
-
-	fmt.Println("test three")
-	machineState = []int{2, 4, 4, 5, 99, 0}
-	loop()
-
-	fmt.Println("test four")
-	machineState = []int{1, 1, 1, 4, 99, 5, 6, 0, 99}
-	loop()
-
-	fmt.Println("Broken program (pre crash)")
-	machineState = []int{1, 0, 0, 3, 1, 1, 2, 3, 1, 3, 4, 3, 1, 5, 0, 3, 2, 10, 1, 19, 1, 6, 19, 23, 2, 23, 6, 27, 1, 5, 27, 31, 1, 31, 9, 35, 2, 10, 35, 39, 1, 5, 39, 43, 2, 43, 10, 47, 1, 47, 6, 51, 2, 51, 6, 55, 2, 55, 13, 59, 2, 6, 59, 63, 1, 63, 5, 67, 1, 6, 67, 71, 2, 71, 9, 75, 1, 6, 75, 79, 2, 13, 79, 83, 1, 9, 83, 87, 1, 87, 13, 91, 2, 91, 10, 95, 1, 6, 95, 99, 1, 99, 13, 103, 1, 13, 103, 107, 2, 107, 10, 111, 1, 9, 111, 115, 1, 115, 10, 119, 1, 5, 119, 123, 1, 6, 123, 127, 1, 10, 127, 131, 1, 2, 131, 135, 1, 135, 10, 0, 99, 2, 14, 0, 0}
-	loop()
-
-	fmt.Println("Broken program (pre crash)")
-
-	machineState = []int{1, 12, 2, 3, 1, 1, 2, 3, 1, 3, 4, 3, 1, 5, 0, 3, 2, 10, 1, 19, 1, 6, 19, 23, 2, 23, 6, 27, 1, 5, 27, 31, 1, 31, 9, 35, 2, 10, 35, 39, 1, 5, 39, 43, 2, 43, 10, 47, 1, 47, 6, 51, 2, 51, 6, 55, 2, 55, 13, 59, 2, 6, 59, 63, 1, 63, 5, 67, 1, 6, 67, 71, 2, 71, 9, 75, 1, 6, 75, 79, 2, 13, 79, 83, 1, 9, 83, 87, 1, 87, 13, 91, 2, 91, 10, 95, 1, 6, 95, 99, 1, 99, 13, 103, 1, 13, 103, 107, 2, 107, 10, 111, 1, 9, 111, 115, 1, 115, 10, 119, 1, 5, 119, 123, 1, 6, 123, 127, 1, 10, 127, 131, 1, 2, 131, 135, 1, 135, 10, 0, 99, 2, 14, 0, 0}
-
-	loop()
-
-	partTwo()
-
 }
