@@ -22,12 +22,13 @@ func (state *IntcodeState) multOp(inputOne int, inputTwo int) {
 }
 
 func (state *IntcodeState) inputOp(location int) {
-	fmt.Println("Machine wanted input gave 5")
-	state.machineState[location] = 5
+	input := state.input()
+	fmt.Printf("Machine wanted input gave %d\n", input)
+	state.machineState[location] = input
 }
 
 func (state *IntcodeState) outputOp(input int) {
-	fmt.Printf("machine output: %d\n", input)
+	state.output(input)
 }
 
 func (state *IntcodeState) jumpIfTrueOp(inputOne int, inputTwo int) bool {
@@ -144,14 +145,17 @@ func (state *IntcodeState) Loop() {
 type IntcodeState struct {
 	i            int
 	machineState []int
+	output func(int) 
+	input func() int
 }
 
-func NewProgram(initialState []int) *IntcodeState {
+func NewProgram(initialState []int, output func(int), input func() int) *IntcodeState {
 	intcodeState := new(IntcodeState)
 	intcodeState.i = 0
+	intcodeState.output = output
+	intcodeState.input = input
 	intcodeState.machineState = make([]int, len(initialState))
 	copy(intcodeState.machineState, initialState)
-	//intcodeState.machineState = copyinitialState
 
 	return intcodeState
 }
